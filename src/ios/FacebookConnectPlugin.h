@@ -12,6 +12,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import <FBNotifications/FBNotifications.h>
 #import <Cordova/CDV.h>
 #import "AppDelegate.h"
 

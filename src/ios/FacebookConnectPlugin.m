@@ -126,9 +126,10 @@
         // For more verbose output on logging uncomment the following:
         // [FBSettings setLoggingBehavior:[NSSet setWithObject:FBLoggingBehaviorAppEvents]];
         NSString *token = [command.arguments objectAtIndex:0];
+        NSData *tokenData = [token dataUsingEncoding:NSUTF8StringEncoding];
         CDVPluginResult *res;
 
-        [FBSDKAppEvents setPushNotificationsDeviceToken:token];
+        [FBSDKAppEvents setPushNotificationsDeviceToken:tokenData];
 
         res = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];

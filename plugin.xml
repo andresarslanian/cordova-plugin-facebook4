@@ -61,6 +61,7 @@
         </config-file>
 
         <framework src="com.facebook.android:facebook-android-sdk:4.14.+"/>
+        <framework src="com.facebook.android:notifications:1.+"/>
 
         <!-- cordova plugin src files -->
         <source-file src="src/android/ConnectPlugin.java" target-dir="src/org/apache/cordova/facebook" />

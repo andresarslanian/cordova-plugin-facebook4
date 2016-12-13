@@ -747,7 +747,7 @@ public class ConnectPlugin extends CordovaPlugin {
 
         if (NotificationsManager.canPresentCard(payload)) {
           NotificationsManager.presentNotification(
-            this,
+            cordova.getActivity(),
             payload,
             new Intent(cordova.getActivity().getApplicationContext(), ConnectPlugin.class)
           );

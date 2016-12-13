@@ -312,6 +312,10 @@ public class ConnectPlugin extends CordovaPlugin {
             executeRegisterPushNotificationToken(args, callbackContext);
             return true;
 
+        } else if (action.equals("presentNotification")) {
+            executePresentNotification(args, callbackContext);
+            return true;
+
         } else if (action.equals("logPurchase")) {
             /*
              * While calls to logEvent can be made to register purchase events,

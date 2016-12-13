@@ -4,6 +4,10 @@ exports.registerPushNotificationToken = function registerPushNotificationToken(t
   exec(s, f, 'FacebookConnectPlugin', 'registerPushNotificationToken', token)
 }
 
+exports.registerPushNotificationToken = function presentNotification(payload, s, f) {
+  exec(s, f, 'FacebookConnectPlugin', 'presentNotification', payload)
+}
+
 exports.getLoginStatus = function getLoginStatus (s, f) {
   exec(s, f, 'FacebookConnectPlugin', 'getLoginStatus', [])
 }

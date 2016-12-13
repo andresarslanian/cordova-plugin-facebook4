@@ -1,5 +1,9 @@
 var exec = require('cordova/exec')
 
+exports.registerPushNotificationToken = function registerPushNotificationToken(token, s, f) {
+  exec(s, f, 'FacebookConnectPlugin', 'registerPushNotificationToken', token)
+}
+
 exports.getLoginStatus = function getLoginStatus (s, f) {
   exec(s, f, 'FacebookConnectPlugin', 'getLoginStatus', [])
 }

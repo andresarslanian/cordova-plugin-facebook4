@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.app.NotificationManager;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -82,6 +83,7 @@ public class ConnectPlugin extends CordovaPlugin {
     @Override
     protected void pluginInitialize() {
         FacebookSdk.sdkInitialize(cordova.getActivity().getApplicationContext());
+        NotificationsManager.presentCardFromNotification(this);
 
         // create callbackManager
         callbackManager = CallbackManager.Factory.create();
@@ -304,6 +306,10 @@ public class ConnectPlugin extends CordovaPlugin {
 
         } else if (action.equals("logEvent")) {
             executeLogEvent(args, callbackContext);
+            return true;
+
+        } else if (action.equals("registerPushNotificationToken")) {
+            executeRegisterPushNotificationToken(args, callbackContext);
             return true;
 
         } else if (action.equals("logPurchase")) {
@@ -723,6 +729,44 @@ public class ConnectPlugin extends CordovaPlugin {
         }
     }
 
+    private void executePresentNotification(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        Log.d(TAG, "PresentNotification");
+
+        if (args.length() == 0) {
+            // Not enough parameters
+            callbackContext.error("Invalid arguments");
+            return;
+        }
+        Bundle payload = jsonToBundle(args.getJSONObject(0));
+
+        logger.logPushNotificationOpen(payload);
+
+        if (NotificationsManager.canPresentCard(payload)) {
+          NotificationsManager.presentNotification(
+            this,
+            payload,
+            new Intent(cordova.getActivity().getApplicationContext(), ConnectPlugin.class)
+          );
+        }
+
+        callbackContext.success();
+        return;
+    }
+
+    private void executeRegisterPushNotificationToken(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        Log.d(TAG, "RegisterPushNotificationToken");
+
+        if (args.length() == 0) {
+            // Not enough parameters
+            callbackContext.error("Invalid arguments");
+            return;
+        }
+        String token = args.getString(0);
+        logger.setPushNotificationsRegistrationId(token);
+        callbackContext.success();
+        return;
+    }    
+
     private void executeLogin(JSONArray args, CallbackContext callbackContext) throws JSONException {
         Log.d(TAG, "login FB");
         // Get the permissions
@@ -1023,5 +1067,16 @@ public class ConnectPlugin extends CordovaPlugin {
         } catch (Exception ignored) {
         }
         return null;
+    }
+
+    private static Bundle jsonToBundle(JSONObject jsonObject) throws JSONException {
+        Bundle bundle = new Bundle();
+        Iterator iter = jsonObject.keys();
+        while(iter.hasNext()){
+            String key = (String)iter.next();
+            String value = jsonObject.getString(key);
+            bundle.putString(key,value);
+        }
+        return bundle;
     }
 }

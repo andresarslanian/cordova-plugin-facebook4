@@ -114,6 +114,59 @@
     }];
 }
 
+- (void)registerPushNotificationToken:(CDVInvokedUrlCommand *)command {
+    if ([command.arguments count] == 0) {
+        // Not enough arguments
+        CDVPluginResult *res = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Invalid arguments"];
+        [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];
+        return;
+    }
+
+    [self.commandDelegate runInBackground:^{
+        // For more verbose output on logging uncomment the following:
+        // [FBSettings setLoggingBehavior:[NSSet setWithObject:FBLoggingBehaviorAppEvents]];
+        NSString *token = [command.arguments objectAtIndex:0];
+        CDVPluginResult *res;
+
+        [FBSDKAppEvents setPushNotificationsDeviceToken:token];
+
+        res = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];
+    }];
+}
+
+- (void) didReceiveRemoteNotification:(CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult *res;
+    NSDictionary* notification = [command.arguments objectAtIndex:0];
+
+    if (notification == nil) {
+        res = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Invalid arguments"];
+        [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];
+        return;
+    } else {
+        [FBSDKAppEvents logPushNotificationOpen:notification];
+
+        // needs to clean up by calling UIBackgroundFetchResult somehow, like in their example
+
+        FacebookConnectPlugin* __weak weakSelf = self;
+        FBNotificationsManager *notificationsManager = [FBNotificationsManager sharedManager];
+        [notificationsManager presentPushCardForRemoteNotificationPayload:notification
+                                                       fromViewController:nil
+                                                               completion:^(FBNCardViewController * _Nullable viewController, NSError * _Nullable error) {
+                                                                   if (error) {
+                                                                       CDVPluginResult* pluginResultERROR = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+                                                                       [weakSelf.commandDelegate sendPluginResult:pluginResultERROR
+                                                                                                   callbackId:command.callbackId];
+                                                                   } else {
+                                                                       CDVPluginResult* pluginResultOK = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+                                                                       [weakSelf.commandDelegate sendPluginResult:pluginResultOK
+                                                                                                       callbackId:command.callbackId];
+                                                                   }
+                                                               }];
+    }
+}
+
 - (void)logPurchase:(CDVInvokedUrlCommand *)command {
     /*
      While calls to logEvent can be made to register purchase events,

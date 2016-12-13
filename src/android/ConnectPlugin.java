@@ -83,7 +83,7 @@ public class ConnectPlugin extends CordovaPlugin {
     @Override
     protected void pluginInitialize() {
         FacebookSdk.sdkInitialize(cordova.getActivity().getApplicationContext());
-        NotificationsManager.presentCardFromNotification(this);
+        NotificationsManager.presentCardFromNotification(cordova.getActivity());
 
         // create callbackManager
         callbackManager = CallbackManager.Factory.create();

@@ -742,7 +742,7 @@ public class ConnectPlugin extends CordovaPlugin {
             return;
         }
         Bundle payload = jsonToBundle(args.getJSONObject(0));
-        Log.d(TAG, args.getJSONObject(0));
+        Log.d(TAG, args.getJSONObject(0).toString());
         logger.logPushNotificationOpen(payload);
 
         if (NotificationsManager.canPresentCard(payload)) {

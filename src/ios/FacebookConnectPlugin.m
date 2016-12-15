@@ -114,30 +114,6 @@
     }];
 }
 
-//
-// Decodes an NSString containing hex encoded bytes into an NSData object
-// src: http://stackoverflow.com/a/14248343/2093626
-//
-- (NSData *)stringToHexData: (NSString *) str
-{
-    double len = [str length] / 2;    // Target length
-    unsigned char *buf = malloc(len);
-    unsigned char *whole_byte = buf;
-    char byte_chars[3] = {'\0','\0','\0'};
-
-    int i;
-    for (i=0; i < [str length] / 2; i++) {
-        byte_chars[0] = [str characterAtIndex:i*2];
-        byte_chars[1] = [str characterAtIndex:i*2+1];
-        *whole_byte = strtol(byte_chars, NULL, 16);
-        whole_byte++;
-    }
-
-    NSData *data = [NSData dataWithBytes:buf length:len];
-    free( buf );
-    return data;
-}
-
 - (void)registerPushNotificationToken:(CDVInvokedUrlCommand *)command {
     if ([command.arguments count] == 0) {
         // Not enough arguments
@@ -150,11 +126,10 @@
         // For more verbose output on logging uncomment the following:
         // [FBSettings setLoggingBehavior:[NSSet setWithObject:FBLoggingBehaviorAppEvents]];
         NSString *token = [command.arguments objectAtIndex:0];
-        NSLog(@"token::%@", token);
-        NSData* deviceToken = [self stringToHexData:token];
-        [FBSDKAppEvents setPushNotificationsDeviceToken:deviceToken];
-
+        NSData *tokenData = [token dataUsingEncoding:NSUTF8StringEncoding];
         CDVPluginResult *res;
+
+        [FBSDKAppEvents setPushNotificationsDeviceToken:tokenData];
 
         res = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];

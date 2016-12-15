@@ -150,7 +150,7 @@
         // For more verbose output on logging uncomment the following:
         // [FBSettings setLoggingBehavior:[NSSet setWithObject:FBLoggingBehaviorAppEvents]];
         NSString *token = [command.arguments objectAtIndex:0];
-
+        NSLog(@"token::%@", token);
         NSData* deviceToken = [self stringToHexData:token];
         [FBSDKAppEvents setPushNotificationsDeviceToken:deviceToken];
 

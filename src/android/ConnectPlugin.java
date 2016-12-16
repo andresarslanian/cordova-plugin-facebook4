@@ -752,11 +752,18 @@ public class ConnectPlugin extends CordovaPlugin {
         logger.logPushNotificationOpen(payload);
 
         if (NotificationsManager.canPresentCard(payload)) {
-          NotificationsManager.presentNotification(
-            cordova.getActivity(),
-            payload,
-            new Intent(cordova.getActivity().getApplicationContext(), ConnectPlugin.class)
-          );
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    NotificationsManager.presentNotification(
+                        cordova.getActivity(),
+                        payload,
+                        new Intent(cordova.getActivity().getApplicationContext(), ConnectPlugin.class)
+                    );
+                }
+            });
+
+          
         }
 
         callbackContext.success();

@@ -21,6 +21,7 @@
 - (void)getAccessToken:(CDVInvokedUrlCommand *)command;
 - (void)logEvent:(CDVInvokedUrlCommand *)command;
 - (void)registerPushNotificationToken:(CDVInvokedUrlCommand *)command;
+- (void)presentNotification:(CDVInvokedUrlCommand *)command;
 - (void)logPurchase:(CDVInvokedUrlCommand *)command;
 - (void)login:(CDVInvokedUrlCommand *)command;
 - (void)logout:(CDVInvokedUrlCommand *)command;

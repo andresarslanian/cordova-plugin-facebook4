@@ -260,7 +260,7 @@ public class ConnectPlugin extends CordovaPlugin {
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Log.d(TAG, "onNewIntent");
+        Log.d(TAG, "onNewIntent - push");
         cordova.getActivity().setIntent(intent);
         NotificationsManager.presentCardFromNotification(cordova.getActivity());
     }
@@ -754,20 +754,18 @@ public class ConnectPlugin extends CordovaPlugin {
         logger.logPushNotificationOpen(payload);
 
         if (NotificationsManager.canPresentCard(payload)) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
+            cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    Intent mIntent = new Intent(cordova.getActivity().getApplicationContext(), ConnectPlugin.class);
-                    mIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
                     Log.d(TAG, "Presenting Notification");
                     NotificationsManager.presentNotification(
                         cordova.getActivity(),
                         payload,
-                        mIntent
+                        new Intent(cordova.getActivity().getApplicationContext(), ConnectPlugin.class)
                     );
                 }
             });
+
+
 
           
         }

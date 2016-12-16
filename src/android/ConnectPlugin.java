@@ -754,7 +754,7 @@ public class ConnectPlugin extends CordovaPlugin {
         logger.logPushNotificationOpen(payload);
 
         if (NotificationsManager.canPresentCard(payload)) {
-            cordova.getThreadPool().execute(new Runnable() {
+            cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     Log.d(TAG, "Presenting Notification");
                     NotificationsManager.presentNotification(

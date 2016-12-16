@@ -748,7 +748,7 @@ public class ConnectPlugin extends CordovaPlugin {
             callbackContext.error("Invalid arguments");
             return;
         }
-        Bundle payload = jsonToBundle(args.getJSONObject(0));
+        final Bundle payload = jsonToBundle(args.getJSONObject(0));
         logger.logPushNotificationOpen(payload);
 
         if (NotificationsManager.canPresentCard(payload)) {

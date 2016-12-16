@@ -65,7 +65,7 @@
 
         <framework src="com.facebook.android:facebook-android-sdk:4.14.+"/>
         <framework src="com.facebook.android:notifications:1.+"/>
-        <framework src="com.android.support:appcompat-v7:22:2.0"/>
+        <framework src="com.android.support:appcompat-v7:25.1.0"/>
 
 
         <!-- cordova plugin src files -->

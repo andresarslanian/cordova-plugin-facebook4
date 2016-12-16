@@ -60,7 +60,7 @@
               android:label="@string/fb_app_name" />
             <activity
                 android:name="org.apache.cordova.facebook.FacebookNotificationActivity"
-                android:theme="@android:style/Theme.AppCompat.Light" >
+                android:theme="@android:style/Theme.AppCompat" >
             </activity>  
 
         </config-file>

@@ -759,7 +759,7 @@ public class ConnectPlugin extends CordovaPlugin {
                     NotificationsManager.presentNotification(
                         cordova.getActivity(),
                         payload,
-                        new Intent(cordova.getActivity().getApplicationContext(), ConnectPlugin.class)
+                        new Intent(cordova.getActivity().getApplicationContext(), MainActivity.class)
                     );
                 }
             });

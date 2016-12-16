@@ -77,6 +77,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import android.support.v7.app.AppCompatActivity;
+
 
 public class FacebookNotificationActivity extends AppCompatActivity {
 

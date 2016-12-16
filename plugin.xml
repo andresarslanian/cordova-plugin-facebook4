@@ -57,7 +57,12 @@
             <activity android:name="com.facebook.FacebookActivity"
               android:theme="@android:style/Theme.Translucent.NoTitleBar"
               android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-              android:label="@string/fb_app_name" />
+              android:label="@string/fb_app_name">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
         </config-file>
 
         <framework src="com.facebook.android:facebook-android-sdk:4.14.+"/>

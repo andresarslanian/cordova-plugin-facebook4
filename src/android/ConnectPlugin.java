@@ -757,6 +757,7 @@ public class ConnectPlugin extends CordovaPlugin {
             cordova.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
+                    Log.d(TAG, "Presenting Notification");
                     NotificationsManager.presentNotification(
                         cordova.getActivity(),
                         payload,

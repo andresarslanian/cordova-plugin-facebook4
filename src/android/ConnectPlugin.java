@@ -260,6 +260,7 @@ public class ConnectPlugin extends CordovaPlugin {
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
+        Log.d(TAG, "onNewIntent");
         cordova.getActivity().setIntent(intent);
         NotificationsManager.presentCardFromNotification(cordova.getActivity());
     }
@@ -759,7 +760,7 @@ public class ConnectPlugin extends CordovaPlugin {
                     NotificationsManager.presentNotification(
                         cordova.getActivity(),
                         payload,
-                        new Intent(cordova.getActivity().getApplicationContext(), MainActivity.class)
+                        new Intent(cordova.getActivity().getApplicationContext(), ConnectPlugin.class)
                     );
                 }
             });

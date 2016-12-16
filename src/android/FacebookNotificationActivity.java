@@ -80,7 +80,7 @@ import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 
 
-public class FacebookNotificationActivity extends AppCompatActivity {
+public class FacebookNotificationActivity extends Activity {
 
     private final String TAG = "FacebookNotificationActivity";
 

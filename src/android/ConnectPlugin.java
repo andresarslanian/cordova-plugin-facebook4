@@ -257,6 +257,14 @@ public class ConnectPlugin extends CordovaPlugin {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        setIntent(intent);
+        NotificationsManager.presentCardFromNotification(cordova.getActivity());
+    }
+
+    @Override
     public void onResume(boolean multitasking) {
         super.onResume(multitasking);
         // Developers can observe how frequently users activate their app by logging an app activation event.

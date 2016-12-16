@@ -140,7 +140,7 @@
 {
     CDVPluginResult *res;
     NSDictionary* notification = [command.arguments objectAtIndex:0];
-
+    NSLog(@"didReceiveRemoteNotification");
     if (notification == nil) {
         res = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Invalid arguments"];
         [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];
@@ -165,6 +165,7 @@
                                                                                                        callbackId:command.callbackId];
                                                                    }
                                                                }];
+        NSLog(@"presentPushCardForRemoteNotificationPayload");
     }
 }
 

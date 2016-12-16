@@ -58,6 +58,9 @@
               android:theme="@android:style/Theme.Translucent.NoTitleBar"
               android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
               android:label="@string/fb_app_name" />
+            <activity android:label="@string/fb_app_name" android:name="org.apache.cordova.facebook.FacebookNotificationActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            
+
         </config-file>
 
         <framework src="com.facebook.android:facebook-android-sdk:4.14.+"/>
@@ -65,6 +68,9 @@
 
         <!-- cordova plugin src files -->
         <source-file src="src/android/ConnectPlugin.java" target-dir="src/org/apache/cordova/facebook" />
+
+
+        
 
     </platform>
 
